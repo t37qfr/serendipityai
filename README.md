@@ -35,5 +35,5 @@ Interview task for serendipityai about topics (Flask and Neo4j)
 
 ## Security
 
-- Create, Update, Delete only allowed for a Topic if the it is owned by the User
+- Create, Update, Delete only allowed for a Topic if it is owned by the User
 
