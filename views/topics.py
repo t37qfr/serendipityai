@@ -5,7 +5,6 @@ from queries.topics import TopicQuery
 
 topics = Blueprint('topics', __name__)
 
-
 @topics.route('/topics/', methods=['GET'])
 def list():
     topic_name = request.args.get('name', None)

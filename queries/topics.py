@@ -20,7 +20,6 @@ class TopicQuery(BaseQuery):
         return data
 
     def get(self, id):
-        # get a topic by id
         query = "MATCH (n:Topic {id: '%s'}) RETURN n.id, n.name, n.description" % id
         data = self.run(query)
 
@@ -53,13 +52,13 @@ class TopicQuery(BaseQuery):
         return data[0]
 
     def delete(self, id):
-        self.connection_exist_with_the_user(id)
+        self._connection_exist_with_the_user(id)
 
         query = "MATCH (n:Topic {id: '%s'}) DETACH DELETE n" % id
         self.run(query)
 
     def update(self, id, dt):
-        self.connection_exist_with_the_user(id)
+        self._connection_exist_with_the_user(id)
 
         query = "MATCH (t:Topic {id: '%s'}) " % id
 
@@ -83,7 +82,7 @@ class TopicQuery(BaseQuery):
 
         return data[0]
 
-    def connection_exist_with_the_user(self, id):
+    def _connection_exist_with_the_user(self, id):
         """Security check to ensure the user has the right to modify the topic"""
         assert self.user_id, 'User not defined'
 
