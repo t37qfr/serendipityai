@@ -52,13 +52,17 @@ class TopicQuery(BaseQuery):
         return data[0]
 
     def delete(self, id):
-        self._connection_exist_with_the_user(id)
+        if not self._connection_exist_with_the_user(id):
+            return False
 
         query = "MATCH (n:Topic {id: '%s'}) DETACH DELETE n" % id
         self.run(query)
 
+        return True
+
     def update(self, id, dt):
-        self._connection_exist_with_the_user(id)
+        if not self._connection_exist_with_the_user(id):
+            return None
 
         query = "MATCH (t:Topic {id: '%s'}) " % id
 
@@ -91,8 +95,10 @@ class TopicQuery(BaseQuery):
 
         is_related_to_user = self.run(query)
 
-        if not is_related_to_user:
-            raise ValueError('Access Denied')
+        if is_related_to_user:
+            return True
+
+        return False
 
 
 

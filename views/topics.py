@@ -55,7 +55,10 @@ def delete(id):
 
     user_id = request.headers.get('user_id')
 
-    TopicQuery(user_id=user_id).delete(id)
+    response = TopicQuery(user_id=user_id).delete(id)
+
+    if not response:
+        return make_response({'msg': 'Not Found'}, 404)
 
     return {'msg', 'deleted'}, 204
 
@@ -70,6 +73,9 @@ def update(id):
     topic = request.json
 
     data = TopicQuery(user_id=user_id).update(id, topic)
+
+    if not data:
+        return make_response({'msg': 'Not Found'}, 404)
 
     response = TopicSerializer(data).to_dict()
 
