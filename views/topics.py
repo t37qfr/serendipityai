@@ -6,7 +6,7 @@ from queries.topics import TopicQuery
 topics = Blueprint('topics', __name__)
 
 
-@topics.route('/topics', methods=['GET'])
+@topics.route('/topics/', methods=['GET'])
 def list():
     topic_name = request.args.get('name', None)
     if topic_name:
@@ -36,7 +36,7 @@ def get(id):
     return json.dumps(response)
 
 
-@topics.route('/topics', methods=['POST'])
+@topics.route('/topics/', methods=['POST'])
 def create():
     new_topic = request.json
 
